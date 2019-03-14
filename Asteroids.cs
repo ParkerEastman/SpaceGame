@@ -27,11 +27,11 @@ namespace ConsoleApp4
 
 
 
-        public Coordinate spawnAsteroid()
+        public Coordinate spawnAsteroid(int width, int height)
         {
             Coordinate ast = new Coordinate();
-            ast.Y = ran.Next(1, 30);
-            ast.X = 100;
+            ast.Y = ran.Next(0, height);
+            ast.X = width;
             Console.SetCursorPosition(ast.X, ast.Y);
             Console.Write("*");
             return ast;
@@ -60,7 +60,7 @@ namespace ConsoleApp4
                 Console.SetCursorPosition(ast.X + 1, ast.Y);
                 Console.Write(" ");
                 Console.SetCursorPosition(ast.X, ast.Y);
-                Console.Write("*");
+                Console.Write("O");
             }
             return AsteroidList;
         }

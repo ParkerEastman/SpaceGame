@@ -1,12 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ships;
-using ConsoleApp4;
-using System.Timers;
-using System.Diagnostics;
 
 
 public class Resources
@@ -45,24 +38,25 @@ namespace ConsoleApp4
 
 
 
-        public void MovementMain(string spaceship) //list of asteroids, 
+        public void MovementMain(string spaceship) //list of asteroid?? mySpaceShip will be passed
         {
             Asteroids ast = new Asteroids();
             InitGame(spaceship);
             Coordinate Asteroid = new Coordinate();
             Asteroid.X = 30;
             Asteroid.Y = 20;
-            //Console.SetCursorPosition(30, 20);
-            //   Console.Write("*");
+
+            int width = Console.WindowWidth-1;
+            int height = Console.WindowHeight;
             List<Coordinate> AsteroidList = new List<Coordinate> { };
-            AsteroidList.Insert(AsteroidList.Count, ast.spawnAsteroid());
+            for(int i = 0; i < width / 2; i++)
+            {
+                AsteroidList.Insert(AsteroidList.Count, ast.spawnAsteroid(width, height));
+                ast.AsteroidMover(AsteroidList);
 
 
+            }
 
-
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            //...
 
 
             bool alive = true;
@@ -76,7 +70,7 @@ namespace ConsoleApp4
                 if (CycleCounter == 50)
                 {
                 ast.AsteroidMover(AsteroidList);
-                AsteroidList.Insert(AsteroidList.Count, ast.spawnAsteroid());
+                AsteroidList.Insert(AsteroidList.Count, ast.spawnAsteroid(width, height));
                     CycleCounter = 0;
                 }   
                 System.Threading.Thread.Sleep(5);
@@ -110,7 +104,7 @@ namespace ConsoleApp4
                             break;
 
                         case ConsoleKey.Spacebar:
-                            AsteroidList.Insert(AsteroidList.Count, ast.spawnAsteroid());
+                            AsteroidList.Insert(AsteroidList.Count, ast.spawnAsteroid(width, height));
                             break;
 
                     }
@@ -130,11 +124,6 @@ namespace ConsoleApp4
             }
             // }
         }
-
-
-
-
-
 
 
 
