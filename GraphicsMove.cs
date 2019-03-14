@@ -66,64 +66,75 @@ namespace ConsoleApp4
 
 
             bool alive = true;
-            bool KeyPress = false;
+            //bool KeyPress = false;
             //Timer time = new Timer(250);
             ConsoleKeyInfo keyInfo;
+            int CycleCounter = 0;
 
-            while ((keyInfo = Console.ReadKey(true)).Key != ConsoleKey.Escape && alive)
+            while (alive)
             {
-                // time.Elapsed += //
-
+                if (CycleCounter == 50)
+                {
                 ast.AsteroidMover(AsteroidList);
                 AsteroidList.Insert(AsteroidList.Count, ast.spawnAsteroid());
-                //sw.Restart();
-                KeyPress = false;
-
-                //while (!KeyPress && sw.Elapsed.Milliseconds < 500)
-                //{
-                switch (keyInfo.Key)
+                    CycleCounter = 0;
+                }   
+                System.Threading.Thread.Sleep(5);
+                CycleCounter++;
+                //ast.AsteroidMover(AsteroidList);
+                //AsteroidList.Insert(AsteroidList.Count, ast.spawnAsteroid());
+                //KeyPress = false;
+                if (Console.KeyAvailable)
                 {
-                    case ConsoleKey.UpArrow:
-                        MoveHero(0, -1, spaceship);
-                        KeyPress = true;
-                        break;
-
-                    case ConsoleKey.RightArrow:
-                        MoveHero(1, 0, spaceship);
-                        KeyPress = true;
-                        break;
-
-                    case ConsoleKey.DownArrow:
-                        MoveHero(0, 1, spaceship);
-                        KeyPress = true;
-                        break;
-
-                    case ConsoleKey.LeftArrow:
-                        MoveHero(-1, 0, spaceship);
-                        KeyPress = true;
-                        break;
-
-                    case ConsoleKey.Spacebar:
-                        AsteroidList.Insert(AsteroidList.Count, ast.spawnAsteroid());
-                        break;
-
-
-                }
-                // }
-                foreach (Coordinate asteroidCoor in AsteroidList)
-                {
-                    if ((asteroidCoor.X >= Hero.X && asteroidCoor.X <= Hero.X + spaceship.Length) && asteroidCoor.Y == Hero.Y)
-                    //if(Asteroid==Hero)
+                    keyInfo = Console.ReadKey(true);
+                    switch (keyInfo.Key)
                     {
-                        alive = false;
+                        case ConsoleKey.UpArrow:
+                            MoveHero(0, -1, spaceship);
+                            //KeyPress = true;
+                            break;
+
+                        case ConsoleKey.RightArrow:
+                            MoveHero(1, 0, spaceship);
+                            //KeyPress = true;
+                            break;
+
+                        case ConsoleKey.DownArrow:
+                            MoveHero(0, 1, spaceship);
+                            //KeyPress = true;
+                            break;
+
+                        case ConsoleKey.LeftArrow:
+                            MoveHero(-1, 0, spaceship);
+                            //KeyPress = true;
+                            break;
+
+                        case ConsoleKey.Spacebar:
+                            AsteroidList.Insert(AsteroidList.Count, ast.spawnAsteroid());
+                            break;
+
                     }
                 }
+
+                //else
+                //{
+                //}
+            foreach (Coordinate asteroidCoor in AsteroidList)
+            {
+                if ((asteroidCoor.X >= Hero.X && asteroidCoor.X <= Hero.X + spaceship.Length) && asteroidCoor.Y == Hero.Y)
+                //if(Asteroid==Hero)
+                {
+                    alive = false;
+                }
             }
-
-
-
-
+            }
+            // }
         }
+
+
+
+
+
 
 
 
